@@ -1,0 +1,247 @@
+USE [AcademicManagement]
+GO
+/****** Object:  Table [dbo].[AttendanceMarkCriteria]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AttendanceMarkCriteria](
+	[CriteriaID] [int] IDENTITY(1,1) NOT NULL,
+	[AttendanceSettingID] [int] NOT NULL,
+	[FromPercent] [int] NOT NULL,
+	[ToPercent] [int] NOT NULL,
+	[Mark] [int] NOT NULL,
+	[IsDeleted] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CriteriaID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AttendanceSettings]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AttendanceSettings](
+	[AttendanceSettingID] [int] IDENTITY(1,1) NOT NULL,
+	[SemesterInfoID] [int] NOT NULL,
+	[MaxMark] [int] NULL,
+	[MinPercentToWriteExam] [int] NULL,
+	[MinPercentToWriteNextYear] [int] NULL,
+	[IsDeleted] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[AttendanceSettingID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Batch]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Batch](
+	[BatchID] [int] IDENTITY(1,1) NOT NULL,
+	[BatchName] [varchar](100) NOT NULL,
+	[IsActive] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[BatchID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Branch]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Branch](
+	[BranchID] [int] IDENTITY(1,1) NOT NULL,
+	[BranchName] [varchar](150) NOT NULL,
+	[IsActive] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[BranchID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[College]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[College](
+	[CollegeID] [int] IDENTITY(1,1) NOT NULL,
+	[CollegeName] [varchar](200) NOT NULL,
+	[IsActive] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CollegeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Degree]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Degree](
+	[DegreeID] [int] IDENTITY(1,1) NOT NULL,
+	[DegreeName] [varchar](100) NOT NULL,
+	[IsActive] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[DegreeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[GradeSettings]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[GradeSettings](
+	[GradeSettingID] [int] IDENTITY(1,1) NOT NULL,
+	[SemesterInfoID] [int] NOT NULL,
+	[FromMark] [int] NOT NULL,
+	[ToMark] [int] NOT NULL,
+	[MarkGrade] [varchar](10) NOT NULL,
+	[Point] [int] NOT NULL,
+	[IsDeleted] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[GradeSettingID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Semester]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Semester](
+	[SemesterID] [int] IDENTITY(1,1) NOT NULL,
+	[SemesterName] [varchar](150) NOT NULL,
+	[IsActive] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[SemesterID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SemesterInformation]    Script Date: 14-09-2025 9.44.58 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SemesterInformation](
+	[SemesterInfoID] [int] IDENTITY(1,1) NOT NULL,
+	[SemesterStartDate] [date] NOT NULL,
+	[SemesterEndDate] [date] NOT NULL,
+	[Holiday] [varchar](255) NULL,
+	[ScheduleOrder] [varchar](50) NULL,
+	[StartingDayOrder] [varchar](50) NULL,
+	[NoOfDaysPerWeek] [int] NULL,
+	[NoOfWorkingDays] [int] NULL,
+	[NoOfWorkingHours] [int] NULL,
+	[FullDayTotalHours] [int] NULL,
+	[FullDayMinHours] [int] NULL,
+	[FirstHalfDayTotalHours] [int] NULL,
+	[FirstHalfDayMinHours] [int] NULL,
+	[SecondHalfDayTotalHours] [int] NULL,
+	[SecondHalfDayMinHours] [int] NULL,
+	[IsDeleted] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedDate] [datetime] NULL,
+	[CollegeID] [int] NOT NULL,
+	[BatchID] [int] NOT NULL,
+	[DegreeID] [int] NOT NULL,
+	[BranchID] [int] NOT NULL,
+	[SemesterID] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[SemesterInfoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[AttendanceMarkCriteria] ADD  DEFAULT ((0)) FOR [IsDeleted]
+GO
+ALTER TABLE [dbo].[AttendanceMarkCriteria] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+ALTER TABLE [dbo].[AttendanceMarkCriteria] ADD  DEFAULT (getdate()) FOR [ModifiedDate]
+GO
+ALTER TABLE [dbo].[AttendanceSettings] ADD  DEFAULT ((0)) FOR [IsDeleted]
+GO
+ALTER TABLE [dbo].[AttendanceSettings] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+ALTER TABLE [dbo].[AttendanceSettings] ADD  DEFAULT (getdate()) FOR [ModifiedDate]
+GO
+ALTER TABLE [dbo].[Batch] ADD  DEFAULT ((0)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[Branch] ADD  DEFAULT ((0)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[College] ADD  DEFAULT ((0)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[Degree] ADD  DEFAULT ((0)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[GradeSettings] ADD  DEFAULT ((0)) FOR [IsDeleted]
+GO
+ALTER TABLE [dbo].[GradeSettings] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+ALTER TABLE [dbo].[GradeSettings] ADD  DEFAULT (getdate()) FOR [ModifiedDate]
+GO
+ALTER TABLE [dbo].[Semester] ADD  DEFAULT ((0)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[SemesterInformation] ADD  DEFAULT ((0)) FOR [IsDeleted]
+GO
+ALTER TABLE [dbo].[SemesterInformation] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+ALTER TABLE [dbo].[SemesterInformation] ADD  DEFAULT (getdate()) FOR [ModifiedDate]
+GO
+ALTER TABLE [dbo].[AttendanceMarkCriteria]  WITH CHECK ADD  CONSTRAINT [FK_AttendanceMarkCriteria_AttendanceSettings] FOREIGN KEY([AttendanceSettingID])
+REFERENCES [dbo].[AttendanceSettings] ([AttendanceSettingID])
+GO
+ALTER TABLE [dbo].[AttendanceMarkCriteria] CHECK CONSTRAINT [FK_AttendanceMarkCriteria_AttendanceSettings]
+GO
+ALTER TABLE [dbo].[AttendanceSettings]  WITH CHECK ADD  CONSTRAINT [FK_AttendanceSettings_Semester] FOREIGN KEY([SemesterInfoID])
+REFERENCES [dbo].[SemesterInformation] ([SemesterInfoID])
+GO
+ALTER TABLE [dbo].[AttendanceSettings] CHECK CONSTRAINT [FK_AttendanceSettings_Semester]
+GO
+ALTER TABLE [dbo].[GradeSettings]  WITH CHECK ADD  CONSTRAINT [FK_GradeSettings_Semester] FOREIGN KEY([SemesterInfoID])
+REFERENCES [dbo].[SemesterInformation] ([SemesterInfoID])
+GO
+ALTER TABLE [dbo].[GradeSettings] CHECK CONSTRAINT [FK_GradeSettings_Semester]
+GO
+ALTER TABLE [dbo].[SemesterInformation]  WITH CHECK ADD  CONSTRAINT [FK_SemesterInformation_Batch] FOREIGN KEY([BatchID])
+REFERENCES [dbo].[Batch] ([BatchID])
+GO
+ALTER TABLE [dbo].[SemesterInformation] CHECK CONSTRAINT [FK_SemesterInformation_Batch]
+GO
+ALTER TABLE [dbo].[SemesterInformation]  WITH CHECK ADD  CONSTRAINT [FK_SemesterInformation_Branch] FOREIGN KEY([BranchID])
+REFERENCES [dbo].[Branch] ([BranchID])
+GO
+ALTER TABLE [dbo].[SemesterInformation] CHECK CONSTRAINT [FK_SemesterInformation_Branch]
+GO
+ALTER TABLE [dbo].[SemesterInformation]  WITH CHECK ADD  CONSTRAINT [FK_SemesterInformation_College] FOREIGN KEY([CollegeID])
+REFERENCES [dbo].[College] ([CollegeID])
+GO
+ALTER TABLE [dbo].[SemesterInformation] CHECK CONSTRAINT [FK_SemesterInformation_College]
+GO
+ALTER TABLE [dbo].[SemesterInformation]  WITH CHECK ADD  CONSTRAINT [FK_SemesterInformation_Degree] FOREIGN KEY([DegreeID])
+REFERENCES [dbo].[Degree] ([DegreeID])
+GO
+ALTER TABLE [dbo].[SemesterInformation] CHECK CONSTRAINT [FK_SemesterInformation_Degree]
+GO
+ALTER TABLE [dbo].[SemesterInformation]  WITH CHECK ADD  CONSTRAINT [FK_SemesterInformation_Semester] FOREIGN KEY([SemesterID])
+REFERENCES [dbo].[Semester] ([SemesterID])
+GO
+ALTER TABLE [dbo].[SemesterInformation] CHECK CONSTRAINT [FK_SemesterInformation_Semester]
+GO
