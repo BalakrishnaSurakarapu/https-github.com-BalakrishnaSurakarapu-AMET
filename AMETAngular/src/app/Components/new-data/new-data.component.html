@@ -1,0 +1,134 @@
+<div class="container mt-5">
+  <h1 class="mb-4 text-primary">Semester Information</h1>
+
+  <form [formGroup]="semesterForm" (ngSubmit)="onSubmit()" class="row g-3 align-items-end">
+
+    <!-- College -->
+    <div class="col-md-2 position-relative">
+      <label class="form-label">College</label>
+      <select formControlName="college" class="form-select"
+        [ngClass]="{'is-invalid': f['college'].touched && f['college'].invalid}">
+        <option value="" disabled>Select College</option>
+        <option *ngFor="let col of colleges" [value]="col.collegeID">{{col.collegeName}}</option>
+      </select>
+      <div *ngIf="f['college'].touched && f['college'].hasError('required')"
+           class="invalid-feedback position-absolute">
+        College is required.
+      </div>
+    </div>
+
+    <!-- Batch -->
+    <div class="col-md-2 position-relative">
+      <label class="form-label">Batch</label>
+      <select formControlName="batch" class="form-select"
+        [ngClass]="{'is-invalid': f['batch'].touched && f['batch'].invalid}">
+        <option value="" disabled>Select Batch</option>
+        <option *ngFor="let batch of batches" [value]="batch.batchID">{{batch.batchName}}</option>
+      </select>
+      <div *ngIf="f['batch'].touched && f['batch'].hasError('required')"
+           class="invalid-feedback position-absolute">
+        Batch is required.
+      </div>
+    </div>
+
+    <!-- Degree -->
+    <div class="col-md-2 position-relative">
+      <label class="form-label">Degree</label>
+      <select formControlName="degree" class="form-select"
+        [ngClass]="{'is-invalid': f['degree'].touched && f['degree'].invalid}">
+        <option value="" disabled>Select Degree</option>
+        <option *ngFor="let deg of degrees" [value]="deg.degreeID">{{deg.degreeName}}</option>
+      </select>
+      <div *ngIf="f['degree'].touched && f['degree'].hasError('required')"
+           class="invalid-feedback position-absolute">
+        Degree is required.
+      </div>
+    </div>
+
+    <!-- Branch -->
+    <div class="col-md-2 position-relative">
+      <label class="form-label">Branch</label>
+      <select formControlName="branch" class="form-select"
+        [ngClass]="{'is-invalid': f['branch'].touched && f['branch'].invalid}">
+        <option value="" disabled>Select Branch</option>
+        <option *ngFor="let br of branches" [value]="br.branchID">{{br.branchName}}</option>
+      </select>
+      <div *ngIf="f['branch'].touched && f['branch'].hasError('required')"
+           class="invalid-feedback position-absolute">
+        Branch is required.
+      </div>
+    </div>
+
+    <!-- Semester -->
+    <div class="col-md-2 position-relative">
+      <label class="form-label">Semester</label>
+      <select formControlName="semester" class="form-select"
+        [ngClass]="{'is-invalid': f['semester'].touched && f['semester'].invalid}">
+        <option value="" disabled>Select Semester</option>
+        <option *ngFor="let sem of semesters" [value]="sem.semesterID">{{sem.semesterName}}</option>
+      </select>
+      <div *ngIf="f['semester'].touched && f['semester'].hasError('required')"
+           class="invalid-feedback position-absolute">
+        Semester is required.
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="col-md-1 d-flex align-items-end">
+      <button type="submit" class="btn btn-primary w-100">Go</button>
+    </div>
+    <div class="col-md-1 d-flex align-items-end">
+      <button type="button" class="btn btn-success w-100" (click)="openPopup()">Add</button>
+    </div>
+  </form>
+</div>
+
+
+<app-new-popup
+  *ngIf="showPopup"
+  [record]="editingRecord"
+  (closed)="onPopupClosed($event)">
+</app-new-popup>
+
+
+<div class="table-responsive mt-4">
+  <table class="table table-striped table-bordered">
+    <thead class="table-primary text-white">
+      <tr>
+        <th>S.No</th>
+        <th>Batch Year</th>
+        <th>Department</th>
+        <th>Semester</th>
+        <th>Semester Start Date</th>
+        <th>Semester End Date</th>
+        <th>Working Days</th>
+        <th>Total Working Days</th>
+         <th>Remaining Working Days</th>
+        <th>Schedule Order</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of semesterinfo; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ record.batchName }}</td>
+        <td>{{ record.branchName }}</td>
+        <td>{{ record.semesterName }}</td>
+        <td>{{ record.semesterStartDate | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ record.semesterEndDate | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ record.noOfWorkingDays }}</td> 
+        <td>{{ record.totalWorkingDaysfrom }}</td> 
+        <td>{{ record.remainingWorkingDays }}</td> 
+        <td>{{ record.scheduleOrder }}</td>
+        <td>
+          <button class="btn btn-warning me-2" (click)="onEdit(record.semesterInfoID)">
+            <i class="bi bi-pencil-square"></i> Edit  
+          </button>
+          <button class="btn btn-danger me-2" (click)="onDelete(record.semesterInfoID)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

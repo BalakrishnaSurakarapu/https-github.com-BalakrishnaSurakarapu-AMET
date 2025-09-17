@@ -1,0 +1,6 @@
+@AMET_HostAddress = http://localhost:5274
+
+GET {{AMET_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

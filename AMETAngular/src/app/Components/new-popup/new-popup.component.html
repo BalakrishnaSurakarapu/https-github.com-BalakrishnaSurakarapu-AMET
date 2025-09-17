@@ -1,0 +1,446 @@
+<div class="modal d-block full-screen-modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
+    <form class="modal-content" [formGroup]="semesterForm" (ngSubmit)="onSubmit()">
+      <div class="modal-header bg-info text-white">
+        <h3 class="modal-title">
+          {{ editingSemesterId ? 'Edit Semester Details' : 'Add Semester Details' }}
+        </h3>
+        <button type="button" class="btn-close" (click)="closePopup()"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-3 mb-3">
+          <!-- College -->
+          <div class="col-md-2">
+            <label class="form-label">College</label>
+            <select formControlName="college" class="form-select"
+              [ngClass]="{'is-invalid': f['college'].touched && f['college'].invalid}">
+              <option value="" disabled>Select College</option>
+              <option *ngFor="let col of colleges" [value]="col.collegeID">{{col.collegeName}}</option>
+            </select>
+            <div *ngIf="f['college'].touched && f['college'].hasError('required')" class="invalid-feedback">
+              College is required.
+            </div>
+          </div>
+
+          <!-- Batch -->
+          <div class="col-md-2">
+            <label class="form-label">Batch</label>
+            <select formControlName="batch" class="form-select"
+              [ngClass]="{'is-invalid': f['batch'].touched && f['batch'].invalid}">
+              <option value="" disabled>Select Batch</option>
+              <option *ngFor="let batch of batches" [value]="batch.batchID">{{batch.batchName}}</option>
+            </select>
+            <div *ngIf="f['batch'].touched && f['batch'].hasError('required')" class="invalid-feedback">
+              Batch is required.
+            </div>
+          </div>
+
+          <!-- Degree -->
+          <div class="col-md-2">
+            <label class="form-label">Degree</label>
+            <select formControlName="degree" class="form-select"
+              [ngClass]="{'is-invalid': f['degree'].touched && f['degree'].invalid}">
+              <option value="" disabled>Select Degree</option>
+              <option *ngFor="let deg of degrees" [value]="deg.degreeID">{{deg.degreeName}}</option>
+            </select>
+            <div *ngIf="f['degree'].touched && f['degree'].hasError('required')" class="invalid-feedback">
+              Degree is required.
+            </div>
+          </div>
+
+          <!-- Branch -->
+          <div class="col-md-2">
+            <label class="form-label">Branch</label>
+            <select formControlName="branch" class="form-select"
+              [ngClass]="{'is-invalid': f['branch'].touched && f['branch'].invalid}">
+              <option value="" disabled>Select Branch</option>
+              <option *ngFor="let br of branches" [value]="br.branchID">{{br.branchName}}</option>
+            </select>
+            <div *ngIf="f['branch'].touched && f['branch'].hasError('required')" class="invalid-feedback">
+              Branch is required.
+            </div>
+          </div>
+
+          <!-- Semester -->
+          <div class="col-md-2">
+            <label class="form-label">Semester</label>
+            <select formControlName="semester" class="form-select"
+              [ngClass]="{'is-invalid': f['semester'].touched && f['semester'].invalid}">
+              <option value="" disabled>Select Semester</option>
+              <option *ngFor="let sem of semesters" [value]="sem.semesterID">{{sem.semesterName}}</option>
+            </select>
+            <div *ngIf="f['semester'].touched && f['semester'].hasError('required')" class="invalid-feedback">
+              Semester is required.
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible Form 1 -->
+        <button class="btn btn-info w-100 mb-3" type="button" (click)="toggleDiv(1)">Semester Information</button>
+        <div [hidden]="!showDiv1" class="border rounded p-3 mb-3">
+          <!-- <div class="section-title rounded">Semester Information</div> -->
+          <div class="row g-3 align-items-stretch">
+            <!-- Left Column -->
+            <div class="col-md-8">
+              <div class="blue-box h-100">
+                <div class="row g-3">
+                  <!-- Start Date -->
+                  <div class="col-md-6">
+                    <label class="form-label">Semester Start Date</label>
+                    <input type="date" class="form-control" formControlName="semesterStartDate"
+                      [ngClass]="{'is-invalid': f['semesterStartDate'].touched && f['semesterStartDate'].invalid}" />
+                    <div *ngIf="f['semesterStartDate'].touched && f['semesterStartDate'].hasError('required')"
+                      class="invalid-feedback">
+                      Start date is required.
+                    </div>
+                  </div>
+
+                  <!-- End Date -->
+                  <div class="col-md-6">
+                    <label class="form-label">Semester End Date</label>
+                    <input type="date" class="form-control" formControlName="semesterEndDate"
+                      [ngClass]="{'is-invalid': f['semesterEndDate'].touched && f['semesterEndDate'].invalid}" />
+                    <div *ngIf="f['semesterEndDate'].touched && f['semesterEndDate'].hasError('required')"
+                      class="invalid-feedback">
+                      End date is required.
+                    </div>
+                  </div>
+
+                  <!-- Holiday -->          
+                  <div class="col-md-6">
+                    <label class="form-label">Holiday</label>
+                    <select class="form-select" formControlName="holiday"
+                      [ngClass]="{'is-invalid': f['holiday'].touched && f['holiday'].invalid}">
+                      <option value="" disabled>Select</option>
+                        <option *ngFor="let day of weekdays" [value]="day.id">{{ day.name }}</option>
+                    </select>
+                    <div *ngIf="f['holiday'].touched && f['holiday'].hasError('required')"
+                      class="invalid-feedback">
+                      holiday is required.
+                    </div>
+                  </div>
+
+  
+
+                  <!-- Schedule Order -->
+                  <div class="col-md-6">
+                    <label class="form-label">Schedule Order</label>
+                    <select class="form-select" formControlName="scheduleOrder"
+                      [ngClass]="{'is-invalid': f['scheduleOrder'].touched && f['scheduleOrder'].invalid}">
+                      <option value="" disabled>Select Schedule</option>
+                      <option value="Week Days">Week Days</option>
+                    </select>
+                    <div *ngIf="f['scheduleOrder'].touched && f['scheduleOrder'].hasError('required')"
+                      class="invalid-feedback">
+                      Schedule Order is required.
+                    </div>
+                  </div>
+
+                  <!-- Days per Week -->
+                  <div class="col-md-6">
+                    <label class="form-label">No. of Days/Week</label>
+                    <input type="number" class="form-control" formControlName="daysPerWeek" min="1"
+                      [ngClass]="{'is-invalid': f['daysPerWeek'].touched && f['daysPerWeek'].invalid}" />
+                    <div *ngIf="f['daysPerWeek'].touched && f['daysPerWeek'].hasError('required')"
+                      class="invalid-feedback">
+                      Days per week is required.
+                    </div>
+                  </div>
+
+                  <!-- Starting Day Order -->
+                  <div class="col-md-6">
+                    <label class="form-label">Starting Dayorder</label>
+                    <select class="form-select" formControlName="startingDayOrder"
+                      [ngClass]="{'is-invalid': f['startingDayOrder'].touched && f['startingDayOrder'].invalid}">
+                      <option value="" disabled>Select Day Order</option>
+                      <option>Day Order1</option>
+                    </select>
+                    <div *ngIf="f['startingDayOrder'].touched && f['startingDayOrder'].hasError('required')"
+                      class="invalid-feedback">
+                      Starting Day Order is required.
+                    </div>
+                  </div>
+
+                  <!-- Working Days -->
+                  <div class="col-md-6">
+                    <label class="form-label">No. of Working Days</label>
+                    <input type="number" class="form-control" formControlName="workingDays" min="1"
+                      [ngClass]="{'is-invalid': f['workingDays'].touched && f['workingDays'].invalid}" />
+                    <div *ngIf="f['workingDays'].touched && f['workingDays'].hasError('required')"
+                      class="invalid-feedback">
+                      Working days are required.
+                    </div>
+                  </div>
+
+                  <!-- Working Hours -->
+                  <div class="col-md-6">
+                    <label class="form-label">No. of Working Hours</label>
+                    <input type="number" class="form-control" min="1" formControlName="workingHours"
+                      [ngClass]="{'is-invalid': f['workingHours'].touched && f['workingHours'].invalid}" />
+                    <div *ngIf="f['workingHours'].touched && f['workingHours'].hasError('required')"
+                      class="invalid-feedback">
+                      Working hours are required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-4">
+              <div class="blue-box h-100">
+                <div class="row g-3">
+                  <table class="table table-bordered">
+                    <thead class="table-primary text-center">
+                      <tr>
+                        <th></th>
+                        <th>Total No. of Hours</th>
+                        <th>Min Hours To be Present</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Full Day</td>
+                        <td>
+                          <input type="number" class="form-control" formControlName="fullDayHours" min="0" />
+                          <div *ngIf="isInvalid('fullDayHours')" class="text-danger small">
+                            <span *ngIf="semesterForm.get('fullDayHours')?.errors?.['required']">Required.</span>
+                            <span *ngIf="semesterForm.get('fullDayHours')?.errors?.['min']">Must be ≥ 1.</span>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" formControlName="fullDayMinHours" min="0" />
+                          <div *ngIf="isInvalid('fullDayMinHours')" class="text-danger small">
+                            <span *ngIf="semesterForm.get('fullDayMinHours')?.errors?.['required']">Required.</span>
+                            <span *ngIf="semesterForm.get('fullDayMinHours')?.errors?.['min']">Must be ≥ 1.</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>I-st Half Day</td>
+                        <td>
+                          <input type="number" class="form-control" formControlName="firstHalfHours" min="0" />
+                          <div *ngIf="isInvalid('firstHalfHours')" class="text-danger small">
+                            <span *ngIf="semesterForm.get('firstHalfHours')?.errors?.['required']">Required.</span>
+                            <span *ngIf="semesterForm.get('firstHalfHours')?.errors?.['min']">Must be ≥ 1.</span>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" formControlName="firstHalfMinHours" min="0" />
+                          <div *ngIf="isInvalid('firstHalfMinHours')" class="text-danger small">
+                            <span *ngIf="semesterForm.get('firstHalfMinHours')?.errors?.['required']">Required.</span>
+                            <span *ngIf="semesterForm.get('firstHalfMinHours')?.errors?.['min']">Must be ≥ 1.</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>II-nd Half Day</td>
+                        <td>
+                          <input type="number" class="form-control" formControlName="secondHalfHours" min="0" />
+                          <div *ngIf="isInvalid('secondHalfHours')" class="text-danger small">
+                            <span *ngIf="semesterForm.get('secondHalfHours')?.errors?.['required']">Required.</span>
+                            <span *ngIf="semesterForm.get('secondHalfHours')?.errors?.['min']">Must be ≥ 1.</span>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control" formControlName="secondHalfMinHours" min="0" />
+                          <div *ngIf="isInvalid('secondHalfMinHours')" class="text-danger small">
+                            <span *ngIf="semesterForm.get('secondHalfMinHours')?.errors?.['required']">Required.</span>
+                            <span *ngIf="semesterForm.get('secondHalfMinHours')?.errors?.['min']">Must be ≥ 1.</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Collapsible Form 2 -->
+        <button class="btn btn-info w-100 mb-3" type="button" (click)="toggleDiv(2)">Attendance Settings</button>
+        <div [hidden]="!showDiv2" class="border rounded p-3 mb-3">
+          <!-- <div class="section-title rounded mt-4">Attendance Settings</div> -->
+          <div class="mb-2">
+            <a href="#" class="link-style">Total Hours Settings as per University</a>
+          </div>
+
+          <div class="row g-4">
+            <!-- Left Column: Attendance Mark Criteria -->
+            <div class="col-md-8">
+              <div class="row mb-3 align-items-end">
+                <div class="col-md-8">
+                  <label class="form-label">Max Mark</label>
+                  <input type="number" formControlName="maxmarks" class="form-control" min="1" placeholder="%"
+                    [ngClass]="{'is-invalid': f['maxmarks'].touched && f['maxmarks'].invalid}" />
+                  <div *ngIf="f['maxmarks'].touched && f['maxmarks'].hasError('required')" class="invalid-feedback">
+                    Max Marks are required.
+                  </div>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+                  <button type="button" class="btn btn-primary mt-2" (click)="addInternalMarkRow()">Add Row</button>
+                </div>
+              </div>
+
+              <table class="table table-bordered">
+                <thead class="table-primary">
+                  <tr>
+                    <th>From(%)</th>
+                    <th>To(%)</th>
+                    <th>Mark</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="internalMarks">
+                  <tr *ngFor="let markGroup of internalMarks.controls; let i = index" [formGroupName]="i">
+                    <td>
+                      <input type="number" formControlName="from" class="form-control" min="1" />
+                      <div *ngIf="isInvalidArrayControl(i,'from')" class="text-danger small">
+                        <span *ngIf="markGroup.get('from')?.hasError('required')">Required.</span>
+                        <span *ngIf="markGroup.get('from')?.hasError('min')">Must be ≥ 0.</span>
+                        <span *ngIf="markGroup.get('from')?.hasError('max')">Must be ≤ 100.</span>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="to" class="form-control" min="1" />
+                      <div *ngIf="isInvalidArrayControl(i,'to')" class="text-danger small">
+                        <span *ngIf="markGroup.get('to')?.hasError('required')">Required.</span>
+                        <span *ngIf="markGroup.get('to')?.hasError('min')">Must be ≥ 0.</span>
+                        <span *ngIf="markGroup.get('to')?.hasError('max')">Must be ≤ 100.</span>
+                      </div>
+                    </td>
+
+                    <td>
+                      <input type="number" formControlName="mark" class="form-control" min="1" />
+                      <div *ngIf="isInvalidArrayControl(i,'mark')" class="text-danger small">
+                        <span *ngIf="markGroup.get('mark')?.hasError('required')">Required.</span>
+                        <span *ngIf="markGroup.get('mark')?.hasError('min')">Must be ≥ 1.</span>
+                      </div>
+                    </td>
+
+                    <td>
+                      <button type="button" class="btn btn-danger btn-sm" (click)="removeInternalMarkRow(i)"
+                        *ngIf="internalMarks.length > 1">×</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+            </div>
+
+            <!-- Right Column: Eligibility Settings -->
+            <div class="col-md-4">
+              <div class="border p-3 bg-light rounded">
+                <h6 class="text-center fw-bold mb-3">Attendance Eligibility Settings For Current Exam</h6>
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Min. % Eligible - To Write Exam</label>
+                  <input type="number" formControlName="minEligibilityCurrent" min="1" class="form-control"
+                    placeholder="Enter %" />
+                  <div *ngIf="isInvalid('minEligibilityCurrent')" class="text-danger small">
+                    <span *ngIf="semesterForm.get('minEligibilityCurrent')?.errors?.['required']">This field is
+                      required.</span>
+                    <span *ngIf="semesterForm.get('minEligibilityCurrent')?.errors?.['min']">Must be ≥ 0.</span>
+                    <span *ngIf="semesterForm.get('minEligibilityCurrent')?.errors?.['max']">Must be ≤ 100.</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="form-label fw-semibold">Min. % Eligible - To Write Exam Next Year/Sem</label>
+                  <input type="number" formControlName="minEligibilityNext" class="form-control" min="1"
+                    placeholder="Enter %" />
+                  <div *ngIf="isInvalid('minEligibilityNext')" class="text-danger small">
+                    <span *ngIf="semesterForm.get('minEligibilityNext')?.errors?.['required']">This field is
+                      required.</span>
+                    <span *ngIf="semesterForm.get('minEligibilityNext')?.errors?.['min']">Must be ≥ 0.</span>
+                    <span *ngIf="semesterForm.get('minEligibilityNext')?.errors?.['max']">Must be ≤ 100.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsible Form 3: Grade Settings (uses same semesterForm) -->
+        <button class="btn btn-info w-100 mb-3" type="button" (click)="toggleDiv(3)">Grade Settings</button>
+        <div [hidden]="!showDiv3" class="border rounded p-3 mb-3">
+          <table class="table table-bordered">
+            <thead class="table-primary text-center">
+              <tr>
+                <th>S.No</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Mark Grade</th>
+                <th>Point</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="grades">
+              <tr *ngFor="let group of grades.controls; let i = index" [formGroupName]="i">
+                <td>{{ i + 1 }}</td>
+                <td>
+                  <input type="number" formControlName="from" class="form-control" min="1" />
+                  <div *ngIf="group.get('from')?.invalid && (group.get('from')?.touched || group.get('from')?.dirty)"
+                    class="text-danger small">
+                    <span *ngIf="group.get('from')?.errors?.['required']">Required.</span>
+                    <span *ngIf="group.get('from')?.errors?.['min']">Must be ≥ 0.</span>
+                    <span *ngIf="group.get('from')?.errors?.['max']">Must be ≤ 100.</span>
+                  </div>
+                </td>
+
+                <td>
+                  <input type="number" formControlName="to" class="form-control" min="1" />
+                  <div *ngIf="group.get('to')?.invalid && (group.get('to')?.touched || group.get('to')?.dirty)"
+                    class="text-danger small">
+                    <span *ngIf="group.get('to')?.errors?.['required']">Required.</span>
+                    <span *ngIf="group.get('to')?.errors?.['min']">Must be ≥ 0.</span>
+                    <span *ngIf="group.get('to')?.errors?.['max']">Must be ≤ 100.</span>
+                  </div>
+                </td>
+
+                <td>
+                  <input type="text" formControlName="grade" class="form-control" min="1" />
+                  <div *ngIf="group.get('grade')?.invalid && (group.get('grade')?.touched || group.get('grade')?.dirty)"
+                    class="text-danger small">
+                    <span *ngIf="group.get('grade')?.errors?.['required']">Required.</span>
+                  </div>
+                </td>
+
+                <td>
+                  <input type="number" formControlName="point" class="form-control" min="1" />
+                  <div *ngIf="group.get('point')?.invalid && (group.get('point')?.touched || group.get('point')?.dirty)"
+                    class="text-danger small">
+                    <span *ngIf="group.get('point')?.errors?.['required']">Required.</span>
+                    <span *ngIf="group.get('point')?.errors?.['min']">Must be ≥ 0.</span>
+                  </div>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeRow(i)"
+                    *ngIf="grades.length > 1">×</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mb-3">
+            <button type="button" class="btn btn-primary" (click)="addRow()">Add Row</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-secondary" (click)="closePopup()">Cancel</button>
+        <button type="submit" class="btn" [ngClass]="editingSemesterId ? 'btn-success' : 'btn-primary'">
+          {{ editingSemesterId ? 'Update' : 'Save' }}
+        </button>
+        <button *ngIf="editingSemesterId" type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
+      </div>
+
+    </form>
+  </div>
+</div>
